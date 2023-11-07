@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: clamav-load-tests
-        image: ghcr.io/bcgov/clamav-load-testing
+        image: ghcr.io/bcgov/clamav-load-testing:main
         imagePullPolicy: Always
         env:
         - name: CLAMAV_HOST

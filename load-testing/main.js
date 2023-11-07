@@ -29,7 +29,7 @@ const runScenario = async (clamscan, filename) => {
     console.log(`starting ${filename} - ${target}...`);
 
     const items = new Array(target).fill(null);
-    const output = await Promise.all(items.map(() => clamscan.scanFiles([filename])));
+    const output = await Promise.all(items.map(() => clamscan.scanFiles([`files/${filename}`])));
 
     let pass = 0;
     let fail = 0;
@@ -46,15 +46,18 @@ const runScenario = async (clamscan, filename) => {
       fail,
     });
 
-    sleep(1000);
+    sleep(5000);
   }
 };
 
 ClamScan.then(async (clamscan) => {
   try {
-    await runScenario(clamscan, '500kb.png');
-    await runScenario(clamscan, '1mb.png');
-    await runScenario(clamscan, '5mb.png');
+    await runScenario(clamscan, '1_500kb.png');
+    await runScenario(clamscan, '2_1mb.png');
+    await runScenario(clamscan, '3_5mb.png');
+    await runScenario(clamscan, '4_10mb.mp3');
+    await runScenario(clamscan, '5_15mb.wmv');
+    await runScenario(clamscan, '6_20mb.wmv');
 
     console.log(result);
   } catch (err) {
