@@ -1,0 +1,38 @@
+name: Build and Publish ClamAV Load Testing Image
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - .github/workflows/publish-clamav-load-testing.yml
+    - load-testing/**
+
+env:
+  DOCKER_REGISTRY: ghcr.io
+  IMAGE_NAME: bcgov/clamav-load-testing
+
+jobs:
+  build-push-clamav:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: hmarr/debug-action@a701ed95a46e6f2fb0df25e1a558c16356fae35a
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+    - name: Build and Push
+      uses: egose/actions/docker-build-push@bc801583a1aebeaada837113ecd19e0dfc2523b8
+      with:
+        registry-url: ${{ env.DOCKER_REGISTRY }}
+        registry-username: ${{ github.actor }}
+        registry-password: ${{ secrets.GITHUB_TOKEN }}
+        image-name: ${{ env.IMAGE_NAME }}
+        docker-context: load-testing
+        docker-file: load-testing/Dockerfile
+        metadata-tags: |
+          type=ref,event=branch
+          type=sha,format=long,prefix=,suffix=

@@ -1,0 +1,7 @@
+{
+  "name": "load-testing",
+  "version": "0.0.0",
+  "dependencies": {
+    "clamscan": "^2.1.2"
+  }
+}

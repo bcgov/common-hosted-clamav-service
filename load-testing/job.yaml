@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: clamav-load-tests
+spec:
+  template:
+    spec:
+      containers:
+      - name: clamav-load-tests
+        image: ghcr.io/bcgov/clamav-load-testing
+        imagePullPolicy: Always
+        env:
+        - name: CLAMAV_HOST
+          value: clamav
+        - name: CLAMAV_PORT
+          value: '3310'
+      restartPolicy: Never
