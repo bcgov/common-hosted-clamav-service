@@ -35,6 +35,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
+              mkdir -p /var/lib/clamav/tmp
               wget -O /var/lib/clamav/main.cvd https://clamav-mirror.apps.silver.devops.gov.bc.ca/main.cvd;
               wget -O /var/lib/clamav/daily.cvd https://clamav-mirror.apps.silver.devops.gov.bc.ca/daily.cvd;
               wget -O /var/lib/clamav/bytecode.cvd https://clamav-mirror.apps.silver.devops.gov.bc.ca/bytecode.cvd;

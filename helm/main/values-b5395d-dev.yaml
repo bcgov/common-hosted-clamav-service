@@ -4,11 +4,11 @@ clamav:
 
   resources:
     limits:
-      cpu: 500m
+      cpu: 1000m
       memory: 3Gi
     requests:
-      cpu: 100m
-      memory: 2Gi
+      cpu: 300m
+      memory: 1800Mi
 
   persistentVolume:
     size: 1Gi
