@@ -1,0 +1,18 @@
+name: Test codebase
+
+on: push
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+    - uses: hmarr/debug-action@a701ed95a46e6f2fb0df25e1a558c16356fae35a
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+    - name: Setup Tools
+      uses: ./.github/actions/setup-tools
+
+    - name: Rerun Pre-Commit Hooks on CI
+      run: |
+        pre-commit run --config=.pre-commit-config.yaml --color=always --show-diff-on-failure --all-files
