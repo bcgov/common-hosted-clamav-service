@@ -1,0 +1,14 @@
+clamav:
+  enabled: true
+  replicaCount: 2
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 3Gi
+    requests:
+      cpu: 100m
+      memory: 2Gi
+
+  persistentVolume:
+    size: 1Gi
