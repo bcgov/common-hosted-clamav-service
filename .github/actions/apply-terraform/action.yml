@@ -1,0 +1,68 @@
+name: Apply Terraform
+description: Apply Network Policies
+
+inputs:
+  context:
+    description: Terraform workspace directory
+    required: true
+  namespace:
+    description: Openshift namespace
+    required: true
+  openshift-server-url:
+    description: Openshift server url
+    required: true
+  openshift-token:
+    description: Openshift token
+    required: true
+
+outputs:
+  init:
+    description: Terraform init outcome
+    value: ${{ steps.init.outcome }}
+  fmt:
+    description: Terraform fmt outcome
+    value: ${{ steps.fmt.outcome }}
+  apply:
+    description: Terraform apply outcome
+    value: ${{ steps.apply.outcome }}
+
+runs:
+  using: composite
+  steps:
+  - name: Setup Terraform
+    uses: hashicorp/setup-terraform@1b93182764c8332e7679b2393cb307cbe7baf9dc
+    with:
+      terraform_version: 1.6.2
+
+  - name: Terraform Format
+    id: fmt
+    run: terraform fmt -check
+    shell: bash
+    working-directory: ${{ inputs.context }}
+
+  - name: Authenticate and set context
+    uses: redhat-actions/oc-login@9b79eb6d8ec51bce42cb4e77f0a174fc80cf3cb9
+    with:
+      openshift_server_url: ${{ inputs.openshift-server-url }}
+      openshift_token: ${{ inputs.openshift-token }}
+      namespace: ${{ inputs.namespace }}
+      insecure_skip_tls_verify: true
+
+  - name: Cache Terraform Modules
+    id: cache
+    uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84
+    with:
+      path: ${{ inputs.context }}/.terraform
+      key: ${{ runner.os }}-terraform-${{ inputs.namespace }}
+
+  - name: Terraform Init
+    id: init
+    run: terraform init
+    shell: bash
+    working-directory: ${{ inputs.context }}
+
+  - name: Terraform Apply
+    id: apply
+    run: terraform apply -auto-approve
+    shell: bash
+    working-directory: ${{ inputs.context }}
