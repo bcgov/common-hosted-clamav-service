@@ -1,4 +1,4 @@
-name: Deploy Dev Environment
+name: Deploy ClamAV
 
 on:
   workflow_dispatch:
@@ -19,7 +19,7 @@ jobs:
     permissions:
       contents: read
     environment:
-      name: ${{ vars.OPENSHIFT_NAMESPACE }}
+      name: ${{ inputs.environment }}
 
     steps:
     - uses: hmarr/debug-action@a701ed95a46e6f2fb0df25e1a558c16356fae35a
