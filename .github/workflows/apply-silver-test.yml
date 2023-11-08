@@ -8,9 +8,6 @@ on:
     - .github/workflows/apply-silver-test.yml
     - network-policies/silver/test/**
 
-env:
-  NAMESPACE: b5395d-test
-
 jobs:
   apply:
     runs-on: ubuntu-22.04
@@ -28,6 +25,6 @@ jobs:
       uses: ./.github/actions/apply-terraform
       with:
         context: network-policies/silver/test
-        namespace: ${{ env.NAMESPACE }}
+        namespace: ${{ vars.OPENSHIFT_NAMESPACE }}
         openshift-server-url: ${{ secrets.OPENSHIFT_SERVER }}
         openshift-token: ${{ secrets.OPENSHIFT_TOKEN }}
