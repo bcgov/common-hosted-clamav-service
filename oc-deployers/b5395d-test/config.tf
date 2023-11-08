@@ -2,8 +2,8 @@ terraform {
   required_version = ">= 1.6.2"
 
   backend "kubernetes" {
-    namespace     = "b5395d-dev"
-    secret_suffix = "state" # pragma: allowlist secret
+    namespace     = "b5395d-test"
+    secret_suffix = "oc-deployers" # pragma: allowlist secret
     config_path   = "~/.kube/config"
   }
 
