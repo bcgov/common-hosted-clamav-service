@@ -78,3 +78,5 @@ persistentVolume:
   - ReadWriteOnce
   size: 1Gi
   storageClass: netapp-block-standard
+
+configVersion: "1.0"

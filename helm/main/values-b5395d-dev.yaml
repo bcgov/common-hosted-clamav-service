@@ -12,3 +12,5 @@ clamav:
 
   persistentVolume:
     size: 1Gi
+
+  configVersion: "1.0"

@@ -6,6 +6,6 @@ metadata:
     {{- include "clamav.labels" . | nindent 4 }}
 data:
   clamd.conf: |-
-{{ .Files.Get "configurations/clamd.conf" | indent 4 }}
+{{ .Files.Get (printf "configurations/%s/clamd.conf" .Values.configVersion) | indent 4 }}
   freshclam.conf: |-
-{{ .Files.Get "configurations/freshclam.conf" | indent 4 }}
+{{ .Files.Get (printf "configurations/%s/freshclam.conf" .Values.configVersion) | indent 4 }}
