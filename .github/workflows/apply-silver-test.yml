@@ -1,0 +1,33 @@
+name: Apply Network Policies on Silver Test
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - .github/workflows/apply-silver-test.yml
+    - network-policies/silver/test/**
+
+env:
+  NAMESPACE: b5395d-test
+
+jobs:
+  apply:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    environment:
+      name: silver-test
+
+    steps:
+    - uses: hmarr/debug-action@a701ed95a46e6f2fb0df25e1a558c16356fae35a
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+    - name: Apply Terraform
+      uses: ./.github/actions/apply-terraform
+      with:
+        context: network-policies/silver/test
+        namespace: ${{ env.NAMESPACE }}
+        openshift-server-url: ${{ secrets.OPENSHIFT_SERVER }}
+        openshift-token: ${{ secrets.OPENSHIFT_TOKEN }}
