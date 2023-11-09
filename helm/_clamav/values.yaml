@@ -34,6 +34,15 @@ tolerations: []
 
 affinity: {}
 
+affinityTemplate: |
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        topologyKey: "kubernetes.io/hostname"
+        labelSelector:
+          matchLabels: {{ include "clamav.selectorLabels" . | nindent 10 }}
+
 startupProbe:
   initialDelaySeconds: 60
   periodSeconds: 30
