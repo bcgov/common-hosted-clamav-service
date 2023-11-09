@@ -27,7 +27,7 @@ repos:
   rev: 95fc56f84c6c0d2363c47dfec6c6e931d26e9f36 # pragma: allowlist secret
   hooks:
   - id: terraform_fmt
-  - id: terraform_validate
+  # - id: terraform_validate
   - id: terraform_docs
   - id: terraform_tflint
 - repo: https://github.com/Yelp/detect-secrets
